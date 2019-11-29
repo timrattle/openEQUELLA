@@ -6,7 +6,7 @@ branches:
     - master
     - /^release\/.+/
     - /^stable-.+/
-    - component\/new_search_ui
+    - component/new_search_ui
 env:
   global:
     ### AWS START ###
