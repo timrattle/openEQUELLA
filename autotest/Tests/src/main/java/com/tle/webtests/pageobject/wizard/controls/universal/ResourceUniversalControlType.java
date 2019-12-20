@@ -1,6 +1,7 @@
 package com.tle.webtests.pageobject.wizard.controls.universal;
 
 import com.tle.webtests.pageobject.ExpectWaiter;
+import com.tle.webtests.pageobject.ExpectedConditions2;
 import com.tle.webtests.pageobject.WaitingPageObject;
 import com.tle.webtests.pageobject.selection.SelectionSession;
 import com.tle.webtests.pageobject.wizard.controls.NewAbstractWizardControl;
@@ -30,10 +31,13 @@ public class ResourceUniversalControlType
   }
 
   public SelectionSession getSelectionSession() {
-    return ExpectWaiter.waiter(
-            ExpectedConditions.frameToBeAvailableAndSwitchToIt("selectresource"),
-            new SelectionSession(context))
-        .get();
+    waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("selectresource")));
+    ExpectWaiter<SelectionSession> thing =
+        ExpectWaiter.waiter(
+            ExpectedConditions2.frameToBeAvailableAndSwitchToIt(
+                getSearchContext(), By.id("selectresource")),
+            new SelectionSession(context));
+    return thing.get();
   }
 
   public WaitingPageObject<GenericAttachmentEditPage> editPage() {
