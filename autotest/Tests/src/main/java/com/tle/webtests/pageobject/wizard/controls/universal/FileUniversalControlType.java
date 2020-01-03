@@ -21,6 +21,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.pagefactory.ByChained;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FileUniversalControlType extends AbstractAttachmentDialogPage<FileUniversalControlType>
     implements AttachmentType<FileUniversalControlType, FileAttachmentEditPage> {
@@ -202,7 +203,8 @@ public class FileUniversalControlType extends AbstractAttachmentDialogPage<FileU
   public void importFromScrapbook(String description) {
     WaitingPageObject<UniversalControl> waiter = control.attachNameWaiter(description, false);
     getAddScrap().click();
-
+    WebDriverWait wait = new WebDriverWait(driver, 30);
+    wait.until(ExpectedConditions.presenceOfElementLocated(wizIdIdXPath("_dialog", "/div/iframe")));
     SelectionSession selectionSession =
         ExpectWaiter.waiter(
                 ExpectedConditions.frameToBeAvailableAndSwitchToIt(
